@@ -22,3 +22,4 @@ extensions:
     - App\Extensions\JavascriptExtension
     - App\Extensions\StylesheetExtension
     migrations: Migrations\DI\MigrationsExtension
+    elasticsearch: Kdyby\ElasticSearch\DI\SearchExtension

@@ -5,6 +5,8 @@ namespace App\Presenters;
 use Articles\Article;
 use Articles\ArticleProcess;
 use Articles\Query\ArticlesQuery;
+use Elastica\Document;
+use Elastica\Request;
 use Kdyby\Doctrine\EntityManager;
 use Latte;
 use Nette;
@@ -22,9 +24,25 @@ class HomepagePresenter extends BasePresenter
 	/** @var ArticleProcess @inject */
 	public $articleProcess;
 
+//	/** @var \Kdyby\ElasticSearch\Client @inject */
+//	public $elastic;
+
 	public function beforeRender()
 	{
 		parent::beforeRender();
+
+//		$index = $this->elastic->getIndex('test');
+//		if (!$index->exists()) {
+//			$index->create();
+//		}
+//		$type = $index->getType('test');
+//		$type->addDocument(new Document(1, ['username' => 'ruflin']));
+//		$index->refresh();
+//		$query = '{"query":{"query_string":{"query":"ruflin"}}}';
+//		$path = $index->getName() . '/' . $type->getName() . '/_search';
+//		$response = $this->elastic->request($path, Request::GET, $query);
+//		$responseArray = $response->getData();
+//		dump($responseArray);
 
 		//What about XSS?
 		$textFormDb = '<b>Toto je komponenta vložená z databáze:</b> {control contactForm, param => 42}';
