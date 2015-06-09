@@ -4,6 +4,7 @@ namespace Pages\Query;
 
 use Doctrine\ORM\NativeQuery;
 use Kdyby;
+use Nette\InvalidArgumentException;
 use Users\User;
 
 class PagesQuery extends Kdyby\Doctrine\QueryObject
@@ -23,6 +24,17 @@ class PagesQuery extends Kdyby\Doctrine\QueryObject
 	{
 		$this->filter[] = function (Kdyby\Doctrine\QueryBuilder $qb) use ($user) {
 			$qb->andWhere('authors.id = :user')->setParameter('user', $user->getId());
+		};
+		return $this;
+	}
+
+	public function byId($id)
+	{
+		if (!is_numeric($id)) {
+			throw new InvalidArgumentException;
+		}
+		$this->filter[] = function (Kdyby\Doctrine\QueryBuilder $qb) use ($id) {
+			$qb->andWhere('page.id = :id')->setParameter('id', $id);
 		};
 		return $this;
 	}

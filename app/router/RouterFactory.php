@@ -17,6 +17,9 @@ class RouterFactory
 	{
 		$router = new RouteList();
 
+		$router[] = $api = new RouteList('Api'); //FIXME: HTTPS!
+		$api[] = new RestRoute('api/v1[/<presenter>[/<id>]]', 'Token:');
+
 		$router[] = $auth = new RouteList('Auth');
 		$auth[] = new Route('[<locale=cs cs|en>/]auth[/<presenter>[/<action>[/<id>]]]', 'Sign:in');
 
