@@ -5,6 +5,7 @@ namespace Users;
 use Kdyby\Doctrine\EntityManager;
 use Nette;
 use Nette\Security\Permission;
+use Tracy\Debugger;
 
 class Authorizator implements Nette\Security\IAuthorizator
 {
@@ -42,6 +43,23 @@ class Authorizator implements Nette\Security\IAuthorizator
 		foreach ($resources as $resource) {
 			$acl->addResource($resource->getName());
 		}
+
+		//TODO: cache
+		foreach ($this->em->getRepository(\Users\Permission::class)->findAll() as $permission) {
+			$strategy = 'deny';
+			if ($permission->allow) {
+				$strategy = 'allow';
+			}
+			$privileges = [];
+			foreach (['create', 'read', 'update', 'delete'] as $privilege) {
+				if ($permission->$privilege) {
+					$privileges[] = $privilege;
+				}
+			}
+			$acl->$strategy($permission->role->name, $permission->resource->name, $privileges);
+		}
+//		Debugger::$maxDepth = 10;
+//		dump($acl);
 
 		$acl->allow(Role::SUPERADMIN, Permission::ALL, Permission::ALL);
 		$this->acl = $acl;
