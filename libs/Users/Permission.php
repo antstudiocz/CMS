@@ -58,7 +58,7 @@ class Permission extends BaseEntity
 	protected $resource;
 
 	/**
-	 * @ORM\ManyToOne(targetEntity="Role", cascade={"persist"})
+	 * @ORM\ManyToOne(targetEntity="Role", inversedBy="permissions", cascade={"persist"})
 	 * @ORM\JoinColumn(name="role_id", referencedColumnName="id")
 	 * @var Role
 	 */

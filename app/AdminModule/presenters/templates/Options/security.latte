@@ -1,0 +1,36 @@
+{block content}
+	{control optionsMenu}
+
+	{var $crud = ['create', 'read', 'update', 'delete']}
+
+	{foreach $roles as $role}
+		<em>{$role->name}</em>
+		{if $role->parent}
+			inherits rules from
+			<em>{$role->parent->name}</em>
+			and
+		{/if}
+		{if !$role->permissions}
+			doesn't have any rules
+		{/if}
+		<br>
+		{foreach $role->permissions as $permission}
+			- is <span class="label label-default">{if !$permission->allow}not {/if}allowed</span> to
+
+			{foreach $crud as $c}
+				{if $permission->$c}
+					<span class="label label-success">{$c}</span>
+				{else}
+					<span class="label label-danger">{$c}</span>
+				{/if}
+			{/foreach}
+
+			{$permission->resource->name}
+			<br>
+		{/foreach}
+
+		{sep}
+			<hr>
+		{/sep}
+	{/foreach}
+{/block}

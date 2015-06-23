@@ -40,6 +40,12 @@ class Role extends BaseEntity implements IRole
 	protected $parent;
 
 	/**
+	 * @ORM\OneToMany(targetEntity="Permission", mappedBy="role", cascade={"persist"})
+	 * @var Permission[]|\Doctrine\Common\Collections\ArrayCollection
+	 */
+	protected $permissions;
+
+	/**
 	 * Returns a string identifier of the Role.
 	 * @return string
 	 */

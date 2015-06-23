@@ -14,6 +14,15 @@
 					</li>
 				{/foreach}
 
+				<li {ifCurrent :Admin:Options:security}class="active"{/ifCurrent}>
+					<a href="{plink :Admin:Options:security}">
+						Zabezpečení
+						{ifCurrent :Admin:Options:security}
+							<span class="sr-only"> ({_aktuální})</span>
+						{/ifCurrent}
+					</a>
+				</li>
+
 			</ul>
 		</div>
 	</div>
