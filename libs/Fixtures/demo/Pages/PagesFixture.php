@@ -13,8 +13,8 @@ class PagesFixture extends \Doctrine\Common\DataFixtures\AbstractFixture impleme
 			$title = \Nette\Utils\Strings::firstUpper($faker->word);
 			$body = $faker->realText(500);
 			$page = new \Pages\Page;
-			$page->setTitle($title);
-			$page->setBody($body);
+			$page->translate('cz')->setTitle($title);
+			$page->translate('cz')->setBody($body);
 			if (rand(0, 1)) {
 				$page->addAuthor($this->getReference('admin-user'));
 			}
@@ -31,6 +31,8 @@ class PagesFixture extends \Doctrine\Common\DataFixtures\AbstractFixture impleme
 				$page->addCategory($this->getReference('page-category-3'));
 			}
 			$page->setLocale($this->getReference('locale-cz'));
+
+			$page->mergeNewTranslations();
 
 			$nonLockingUniqueInserter = new \Kdyby\Doctrine\Tools\NonLockingUniqueInserter($manager);
 			$nonLockingUniqueInserter->persist($page);

@@ -37,7 +37,8 @@
     "fzaninotto/faker": "^1.5",
     "kdyby/monolog": "^1.1",
     "nextras/secured-links": "^1.3",
-    "oyejorge/less.php": "v1.7.0.4"
+    "oyejorge/less.php": "v1.7.0.4",
+    "zenify/doctrine-behaviors": "^2.1"
   },
   "require-dev": {
     "mrtnzlml/testbench": "dev-master",

@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Kdyby\Doctrine\Entities\Attributes\Identifier;
 use Kdyby\Doctrine\Entities\MagicAccessors;
+use Knp\DoctrineBehaviors\Model\Translatable\Translatable;
 use Localization\ILocaleAware;
 use Nette\Security\Passwords;
 use Users\User;
@@ -13,24 +14,8 @@ use Files\File;
 
 /**
  * @ORM\Entity
- * @ORM\Table(
- *      name="pages",
- *      indexes={
- *          @ORM\Index(columns={"title"}, flags={"fulltext"}),
- *          @ORM\Index(columns={"body"}, flags={"fulltext"}),
- *          @ORM\Index(columns={"title", "body"}, flags={"fulltext"})
- *      }
- * )
  *
- * @method setTitle(string $title)
- * @method string getTitle()
- * @method setBody(string $body)
- * @method string getBody()
  * @method boolean getDeleted()
- * @method setIndividualTitle(string $title)
- * @method string getIndividualTitle()
- * @method setDescription(string $description)
- * @method string getDescription()
  * @method setIndex(string $index)
  * @method string getIndex()
  * @method setFollow(string $follow)
@@ -57,30 +42,7 @@ class Page implements ILocaleAware
 
     use Identifier;
     use MagicAccessors;
-
-    /**
-     * @ORM\Column(type="text", options={"comment":"Title of the article"})
-     * @var string
-     */
-    protected $title;
-
-    /**
-     * @ORM\Column(type="text", nullable=TRUE, options={"comment":"Meta title of the article"})
-     * @var string
-     */
-    protected $individualTitle = NULL;
-
-    /**
-     * @ORM\Column(type="text", nullable=TRUE, options={"comment":"Meta description of the article"})
-     * @var string
-     */
-    protected $description = NULL;
-
-    /**
-     * @ORM\Column(type="text", options={"comment":"Body of the article"})
-     * @var string
-     */
-    protected $body;
+    use Translatable;
 
     /**
      * @ORM\Column(type="string", name="`index`", nullable=TRUE, options={"comment":"Meta robots - index value"})
@@ -185,7 +147,7 @@ class Page implements ILocaleAware
      * @ORM\JoinColumn(name="locale_id", referencedColumnName="id")
      * @var \Localization\Locale
      */
-    protected $locale;
+    protected $locale; //FIXME
 
     /**
      * @ORM\ManyToMany(targetEntity="Files\File", cascade={"persist"})

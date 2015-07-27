@@ -63,3 +63,7 @@ monolog:
 		- Monolog\Processor\IntrospectionProcessor
 		- Monolog\Processor\WebProcessor
 		- Monolog\Processor\GitProcessor
+
+
+translatable:
+    currentLocaleCallable: [@translation.default, getLocale]

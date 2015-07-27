@@ -25,6 +25,10 @@ class PagesGrid extends AControl
 	{
 		$this->em = $em;
 		$this->pageFacade = $pageFacade;
+
+		/** @var Page $page */
+		$page = $this->em->getRepository(Page::class)->findOneBy([]);
+		dump($page->translate('cz'));exit;
 	}
 
 	/** @param $presenter UI\Presenter */
